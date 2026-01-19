@@ -5,22 +5,31 @@ include '../admin/config/Login.php';
 
 $db = new database();
 $conn = $db->getConn();
-$login = new Login($conn);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-    $stmt = $conn->prepare(
-        "SELECT * FROM users WHERE email=? AND status='active'"
-    );
+    $stmt = $conn->prepare("SELECT * FROM users WHERE email=?");
     $stmt->bind_param("s", $email);
     $stmt->execute();
     $user = $stmt->get_result()->fetch_assoc();
 
-    if ($user && password_verify($password, $user['password'])) {
-
+    //ไม่พบผู้ใช้
+    if (!$user) {
+        echo "<script>alert('Email or password incorrect');</script>";
+    }
+    //ถูกแบน
+    elseif ($user['status'] !== 'Active') {
+        echo "<script>alert('คุณถูกแบน ไม่สามารถเข้าสู่ระบบได้');</script>";
+    }
+    //รหัสผ่านผิด
+    elseif (!password_verify($password, $user['password'])) {
+        echo "<script>alert('Email or password incorrect');</script>";
+    }
+    //ผ่านทุกอย่าง
+    else {
         $_SESSION['user'] = [
             'id' => $user['id'],
             'username' => $user['username'],
@@ -29,7 +38,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'role' => $user['role']
         ];
 
-        // แยก role
         if ($user['role'] === 'admin') {
             header("Location: ../admin/index.php");
         } else {
@@ -37,10 +45,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
         exit;
     }
-
-    echo "Email or password incorrect";
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -144,7 +151,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <form method="post" class="login-form">
             <h2>Login</h2>
             <div class="blockimg">
-                <img class="imguserlogin" src="../admin/image/logouser.jpg" alt="">
+                <img class="imguserlogin" src="../admin/image/login.jpg" alt="">
             </div>
             <input name="email" type="email" placeholder="Email">
             <input name="password" type="password" placeholder="Password">

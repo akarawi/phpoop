@@ -98,7 +98,7 @@ nav a:hover {
 /* Hero Section */
 .hero {
     background: linear-gradient(rgba(15, 36, 21, 0.75), rgba(15, 36, 21, 0.75)),
-        url('../views/img/horoimg2.jpg') center/cover no-repeat;
+        url('https://images.unsplash.com/photo-1636525653613-2a3a05c00759?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8cGxhbnQlMjB3YWxscGFwZXJ8ZW58MHx8MHx8fDA%3D') center/cover no-repeat;
     height: 100vh;
     display: flex;
     align-items: center;
@@ -386,7 +386,6 @@ footer {
     <header>
         <div class="container">
             <div class="box">
-                <img src="logo_plant.png" alt="">
                 <h1 class="logo">GreenGarden</h1>
             </div>
 
@@ -434,14 +433,17 @@ footer {
         <h2>บริการของเรา</h2>
         <div class="service-grid">
             <div class="service-card">
+                <h1>🪴</h1>
                 <h3>ดูแลต้นไม้</h3>
                 <p>ให้บริการดูแลต้นไม้ เปลี่ยนดิน ตัดแต่งกิ่ง และให้คำปรึกษาแบบมืออาชีพ</p>
             </div>
             <div class="service-card">
+                <h1>🎨</h1>
                 <h3>ออกแบบ & จัดสวน</h3>
                 <p>บริการออกแบบสวนภายในบ้าน คอนโด และสำนักงาน</p>
             </div>
             <div class="service-card">
+                <h1>📦</h1>
                 <h3>ส่งต้นไม้ถึงบ้าน</h3>
                 <p>ส่งต้นไม้หลากหลายชนิดทั่วประเทศ แพ็คอย่างดี</p>
             </div>

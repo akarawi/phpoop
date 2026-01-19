@@ -21,6 +21,15 @@
     </div>
 
     <div class="col-xl-3 col-md-4 col-sm-6">
+        <div class="card shadow-sm h-100 border-info">
+            <div class="card-body">
+                <h6 class="text-muted">Banned</h6>
+                <h3 class="fw-bold text-info">1</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-md-4 col-sm-6">
         <div class="card shadow-sm h-100 border-warning">
             <div class="card-body">
                 <h6 class="text-muted">Category</h6>

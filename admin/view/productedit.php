@@ -67,11 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <div class="mb-2">
         <label>รูปเดิม</label><br>
-        <?php if ($product['image']) : ?>
-            <img src="../image/<?= $product['image'] ?>" width="120">
-        <?php else : ?>
-            <span class="text-muted">ยังไม่มีรูป</span>
-        <?php endif; ?>
+        <img src="./image/<?= $product['image'] ?>" alt="">
     </div>
 
     <div class="mb-2">

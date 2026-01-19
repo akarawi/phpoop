@@ -21,27 +21,39 @@ class Product
         return $this->conn->query("SELECT * FROM {$this->table} WHERE id=$id");
     }
 
-    public function uploadImage($file)
+    public function getByCategory($category_id)
 {
-    if (empty($file['name'])) {
+    $sql = "SELECT * FROM products WHERE category_id = ?";
+    $stmt = $this->conn->prepare($sql);
+
+    $stmt->bind_param("i", $category_id); // i = integer
+    $stmt->execute();
+
+    $result = $stmt->get_result();
+    return $result->fetch_all(MYSQLI_ASSOC);
+}
+
+    public function uploadImage($file)
+    {
+        if (empty($file['name'])) {
+            return null;
+        }
+
+        $targetDir = "image/";
+
+        if (!is_dir($targetDir)) {
+            mkdir($targetDir, 0777, true);
+        }
+
+        $fileName = time() . "_" . basename($file["name"]);
+        $targetFile = $targetDir . $fileName;
+
+        if (move_uploaded_file($file["tmp_name"], $targetFile)) {
+            return $fileName;   // ← ถ้าคุณต้องการเก็บเฉพาะชื่อไฟล์
+        }
+
         return null;
     }
-
-    $targetDir = "image/";
-
-    if (!is_dir($targetDir)) {
-        mkdir($targetDir, 0777, true);
-    }
-
-    $fileName = time() . "_" . basename($file["name"]);
-    $targetFile = $targetDir . $fileName;
-
-    if (move_uploaded_file($file["tmp_name"], $targetFile)) {
-        return $fileName;   // ← ถ้าคุณต้องการเก็บเฉพาะชื่อไฟล์
-    }
-
-    return null;
-}
 
 
 

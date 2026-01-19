@@ -5,6 +5,7 @@ include 'config/Product.php';
 $db = new database();
 $conn = $db->getConn();
 $product = new Product($conn);
+$categoryId = $_GET['category'] ?? '';
 
 if ($_POST) {
     $data = [
@@ -17,7 +18,7 @@ if ($_POST) {
     ];
 
     $product->create($data);
-    header("Location: index.php?page=product");
+    header("Location: index.php?page=product&category=" . $categoryId);
     exit;
 }
 ?>
@@ -46,8 +47,9 @@ if ($_POST) {
     </div>
 
     <div class="mb-2">
-        <label>หมวดหมู่ (ID)</label>
-        <input type="number" name="category_id" class="form-control" required>
+        <label>หมวดหมู่</label>
+        <input type="number" name="category_id" class="form-control" value="<?= htmlspecialchars($categoryId) ?>"
+            required>
     </div>
 
     <div class="mb-2">
